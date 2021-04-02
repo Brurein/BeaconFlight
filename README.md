@@ -9,6 +9,7 @@ Link to their github: https://github.com/ExtraCrafTX/BeaconFlight
 
 I do not intend to maintain this beyond my own needs, please don't ask.
 
+Extracraftx: If you want this taken down for any reason message me and I will gladly oblige. Not wanting to tread on any toes =]
 
 Copy/Paste of the original README.md
 
