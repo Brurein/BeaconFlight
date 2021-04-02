@@ -31,7 +31,7 @@ public abstract class BeaconBlockEntityMixin {
     ), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
     private void onApplyPlayerEffects(CallbackInfo info, double d, int i, int duration, Box bb, List l, Iterator it, PlayerEntity player) {
         EventHandler.onBeaconUpdate(player, duration, level);
-        BeaconFlight.log(Level.DEBUG, "Applying PlayerEffect");
+        //BeaconFlight.log(Level.DEBUG, "Applying PlayerEffect");
         
     }
 

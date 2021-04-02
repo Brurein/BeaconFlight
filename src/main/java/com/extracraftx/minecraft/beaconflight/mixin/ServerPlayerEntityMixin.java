@@ -36,7 +36,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Fl
 
     @Override
     public void allowFlight(int ticks, boolean setFlying) {
-    	BeaconFlight.log(Level.DEBUG, "Enabling flight");
+    	//BeaconFlight.log(Level.DEBUG, "Enabling flight");
         flyTicksLeft = Math.max(flyTicksLeft, ticks);
         if(Config.INSTANCE.xpDrainRate == 0 || totalExperience > 0){
             abilities.allowFlying = true;
@@ -49,11 +49,11 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Fl
 
     @Override
     public void disallowFlight() {
-    	BeaconFlight.log(Level.INFO, "Disabling flight");
+    	//BeaconFlight.log(Level.INFO, "Disabling flight");
         abilities.allowFlying = false;
         abilities.flying = false;
         sendAbilitiesUpdate();
-        BeaconFlight.log(Level.DEBUG, "No longer flight active SLOW FAALLLLLLLLL");
+        //BeaconFlight.log(Level.DEBUG, "No longer flight active SLOW FAALLLLLLLLL");
         addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, Config.INSTANCE.slowFallingTime*20));
     }
 
@@ -89,7 +89,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Fl
 
     @Inject(method = "setGameMode", at = @At("RETURN"))
     private void onSetGameMode(GameMode gameMode, CallbackInfo info){
-    	BeaconFlight.log(Level.DEBUG, "Gamemode: "+gameMode.getName() + " Enabled!");
+    	//BeaconFlight.log(Level.DEBUG, "Gamemode: "+gameMode.getName() + " Enabled!");
         EventHandler.onSetGameMode(gameMode, this);
     }
 
