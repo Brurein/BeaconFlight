@@ -53,8 +53,14 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Fl
         abilities.allowFlying = false;
         abilities.flying = false;
         sendAbilitiesUpdate();
-        //BeaconFlight.log(Level.DEBUG, "No longer flight active SLOW FAALLLLLLLLL");
-        addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, Config.INSTANCE.slowFallingTime*20));
+        
+        //Only apply potion effect if not in spectator/creative
+    	//fixes a weird issue if the slow fall is applied while in spect
+    	//which results in loss of control and potentially falling out the world
+        if(!this.isSpectator() && !this.isCreative()) {
+        	addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, Config.INSTANCE.slowFallingTime*20));
+        }
+        
     }
 
     @Override
