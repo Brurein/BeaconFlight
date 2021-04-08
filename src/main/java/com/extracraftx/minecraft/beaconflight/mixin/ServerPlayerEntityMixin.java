@@ -1,12 +1,10 @@
 package com.extracraftx.minecraft.beaconflight.mixin;
 
-import com.extracraftx.minecraft.beaconflight.BeaconFlight;
 import com.extracraftx.minecraft.beaconflight.config.Config;
 import com.extracraftx.minecraft.beaconflight.events.EventHandler;
 import com.extracraftx.minecraft.beaconflight.interfaces.FlyEffectable;
 import com.mojang.authlib.GameProfile;
 
-import org.apache.logging.log4j.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -49,15 +47,17 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Fl
 
     @Override
     public void disallowFlight() {
-    	//BeaconFlight.log(Level.INFO, "Disabling flight");
-        abilities.allowFlying = false;
-        abilities.flying = false;
-        sendAbilitiesUpdate();
-        
-        //Only apply potion effect if not in spectator/creative
+    	//Only apply potion effect if not in spectator/creative
     	//fixes a weird issue if the slow fall is applied while in spect
     	//which results in loss of control and potentially falling out the world
         if(!this.isSpectator() && !this.isCreative()) {
+        	
+	    	//BeaconFlight.log(Level.INFO, "Disabling flight");
+	        abilities.allowFlying = false;
+	        abilities.flying = false;
+	        sendAbilitiesUpdate();
+        
+        
         	addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, Config.INSTANCE.slowFallingTime*20));
         }
         
@@ -95,7 +95,6 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Fl
 
     @Inject(method = "setGameMode", at = @At("RETURN"))
     private void onSetGameMode(GameMode gameMode, CallbackInfo info){
-    	//BeaconFlight.log(Level.DEBUG, "Gamemode: "+gameMode.getName() + " Enabled!");
         EventHandler.onSetGameMode(gameMode, this);
     }
 

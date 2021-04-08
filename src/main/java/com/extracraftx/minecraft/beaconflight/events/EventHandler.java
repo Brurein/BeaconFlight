@@ -5,6 +5,8 @@ import com.extracraftx.minecraft.beaconflight.interfaces.FlyEffectable;
 
 import net.minecraft.advancement.PlayerAdvancementTracker;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -57,6 +59,13 @@ public class EventHandler {
     public static void onSetGameMode(GameMode gameMode, FlyEffectable player){
         if(gameMode.isCreative())
             player.setFlightTicks(0);
+        
+    	if(gameMode == GameMode.SPECTATOR) {
+    		if(player instanceof LivingEntity) {
+    			LivingEntity le = (LivingEntity)player;
+    			le.removeStatusEffect(StatusEffects.SLOW_FALLING);
+    		}
+    	}
     }
 
     public static boolean checkItem(Item required, Item current){
